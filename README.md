@@ -53,7 +53,7 @@ Evaluated at 256×256 with guidance `w=3.0`, `n=1000` (see `results/`):
 
 Large files are **not** in this GitHub repo (checkpoints are ~1GB each). Download final weights, caches, and full run folders from Drive:
 
-**Drive link:** _[paste your Google Drive link here]_
+**Drive link:** https://drive.google.com/drive/folders/1keGBlN7BsLo71awv_KT4BoZQ4akhCkiu
 
 Expected Drive contents:
 
