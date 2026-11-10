@@ -35,19 +35,61 @@ Frozen CLIP ViT-B/32
 
 At inference, input is **text only** (random noise + caption → image). Images are used only during training.
 
-## Results (summary)
+## Results
 
-Evaluated at 256×256 with guidance `w=3.0`, `n=1000` (see `results/`):
+Evaluated at 256×256 with guidance `w=3.0`, `n=1000` (JSON in `results/`):
 
-| Model | Steps | FID ↓ | CLIP aligned ↑ | CLIP swapped |
-| --- | ---: | ---: | ---: | ---: |
-| A | 400k | 55.36 | 0.292 | 0.278 |
-| B | 500k | 58.03 | 0.272 | 0.279 |
-| C | 500k | **51.16** | **0.306** | 0.295 |
+| Model | FID | CLIP correct | CLIP swapped |
+| --- | ---: | ---: | ---: |
+| A (400k) | 55.4 | 0.292 | 0.278 |
+| B (500k) | 58.0 | 0.272 | 0.279 |
+| C (500k) | **51.2** | **0.306** | 0.295 |
 
-- **FID:** realism / closeness to real CUB distribution (lower better)
-- **CLIP aligned:** similarity of generated image to the intended caption (higher better)
-- **CLIP swapped:** similarity to an attribute-swapped caption; aligned − swapped reflects binding quality
+- **FID (↓):** Fréchet Inception Distance vs real CUB images — realism / distribution match
+- **CLIP correct (↑):** CLIP similarity between generated image and the intended caption
+- **CLIP swapped:** CLIP similarity to an attribute-swapped caption (e.g. red↔black crown/throat); a larger (correct − swapped) gap means better attribute binding
+
+**Takeaway:** Model C (global + local) wins on FID and CLIP correct under matched architecture/params.
+
+## Qualitative samples
+
+### UNet C @ 500k — text-only generation
+
+Prompt: *“a small bird with a red crown and a black throat”*
+
+![C 500k single](samples/readme/C_500k_single.png)
+
+![C 500k samples](samples/readme/C_500k_samples.png)
+
+### Training progress (Model C, same prompt family)
+
+Earlier checkpoint samples (structure emerging, weak color binding):
+
+![C early](samples/readme/C_early_samples.png)
+
+Mid training (clearer birds; partial red / dark attributes):
+
+![C mid](samples/readme/C_mid_samples.png)
+
+Attribute-swap grids during training (same seed / CFG setup):
+
+| 225k steps | 300k steps |
+| --- | --- |
+| ![C 225k](samples/readme/C_step225000_swap.png) | ![C 300k](samples/readme/C_step300000_swap.png) |
+
+### A vs B vs C — attribute swap (final)
+
+Same seed, CFG=3, DDIM-50. Rows = Exp A (local), B (global), C (global+local). Columns = prompt / swapped prompt pairs.
+
+![ABC attribute swap](samples/readme/abc_attribute_swap.jpg)
+
+### VAE reconstructions
+
+Left: real CUB crops · Right: VAE recon (f=4 latent)
+
+![VAE recon](samples/readme/vae_recon.jpg)
+
+More grids also live under `samples/` and `samples/presentation/`.
 
 ## Google Drive (checkpoints & full artifacts)
 
@@ -69,14 +111,6 @@ Expected Drive contents:
 
 After download, place folders so paths match the commands below (`runs/`, `cache/`, `data/`).
 
-## Sample outputs
-
-| A | B | C |
-| --- | --- | --- |
-| ![A](samples/demo_A.png) | ![B](samples/demo_B.png) | ![C](samples/demo_C.png) |
-
-More grids: `samples/presentation/`.
-
 ## Repo layout
 
 ```text
@@ -85,7 +119,7 @@ src/              # VAE, UNet, diffusion, CLIP conditioning, data
 scripts/          # train, cache, sample, eval, download
 docs/             # project writeups
 results/          # saved metric JSON from final evals
-samples/          # qualitative demos (small PNGs only)
+samples/          # qualitative demos + readme/ grids
 requirements.txt
 ```
 
