@@ -1,0 +1,18 @@
+seed: 0
+image_size: 256
+n_fid_samples: 30000
+ddim_steps: 50
+ddim_eta: 0.0
+guidance_grid: [1.0, 3.0, 5.0, 7.5]
+default_guidance_w: 3.0
+batch_size: 16
+grid_size: 16
+text_max_length: 77
+clip_model: openai/clip-vit-base-patch32
+
+# Color/part swap prompts used by scripts/eval_t2i.py
+swap_prompts:
+  - "a small bird with a red crown and a black throat"
+  - "a small bird with a black crown and a red throat"
+  - "a yellow bird with a white belly and blue wings"
+  - "a yellow bird with a blue belly and white wings"

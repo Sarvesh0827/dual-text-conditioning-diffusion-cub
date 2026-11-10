@@ -1,0 +1,17 @@
+{
+  "n": 1000,
+  "guidance_w": 3.0,
+  "experiment": "A",
+  "n_params": 81128580,
+  "swap": {
+    "aligned_clip": 0.29197850823402405,
+    "swapped_clip": 0.27830541133880615,
+    "prompts": [
+      "a small bird with a red crown and a black throat",
+      "a small bird with a black crown and a red throat",
+      "a yellow bird with a white belly and blue wings",
+      "a yellow bird with a blue belly and white wings"
+    ]
+  },
+  "fid": 55.358754388855544
+}

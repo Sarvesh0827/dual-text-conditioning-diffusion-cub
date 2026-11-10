@@ -1,0 +1,29 @@
+seed: 0
+image_size: 256
+latent_channels: 4
+latent_size: 64
+
+batch_size: 8
+grad_accum: 4
+lr: 2.0e-4
+weight_decay: 0.0
+precision: amp_fp16
+num_workers: 2
+max_steps: 80000
+save_every: 2000
+sample_every: 2000
+log_every: 50
+ema_decay: 0.9999
+grad_checkpoint: false
+
+channels: [128, 256, 512, 512]
+num_res_blocks: 2
+kl_weight: 1.0e-6
+lpips_weight: 0.1
+gan_weight: 0.0          # PatchGAN off in v1
+bbox_expand: 1.1
+num_captions: 10
+
+# Reconstruction gate (warn only unless --strict)
+min_psnr: 24.0
+max_lpips: 0.25

@@ -1,0 +1,40 @@
+# Data and run artifacts — never commit these (root only)
+/data/
+/runs/
+/cache/
+/outputs/
+
+# Keep small demo PNGs in samples/; ignore debug dumps if any
+samples/presentation/debug/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Checkpoints and tensors
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+
+# Logs / IDE
+runs/*/events.out.tfevents.*
+.tensorboard/
+.idea/
+.vscode/
+.DS_Store
+*.log
+
+# Jupyter
+.ipynb_checkpoints/

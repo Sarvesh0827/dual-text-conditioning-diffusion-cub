@@ -1,0 +1,44 @@
+# Experiment B: global pooled CLIP → AdaGN only
+seed: 0
+image_size: 256
+latent_channels: 4
+latent_size: 64
+timesteps: 1000
+schedule: cosine
+
+batch_size: 8
+grad_accum: 8
+lr: 1.0e-4
+weight_decay: 0.0
+ema_decay: 0.9999
+precision: amp_fp16
+num_workers: 2
+max_steps: 500000
+save_every: 25000
+
+sample_every: 5000
+log_every: 100
+grad_checkpoint: false
+
+clip_model: openai/clip-vit-base-patch32
+p_uncond: 0.10
+guidance_w: 3.0
+ddim_steps: 50
+ddim_eta: 0.0
+
+use_global_text: true
+use_local_text: false
+use_part_loss: false
+
+model_channels: [128, 256, 384, 512]
+num_res_blocks: 2
+num_heads: 8
+dropout: 0.1
+self_attn_res: [16, 8]
+cross_attn_res: [32, 16, 8]
+time_embed_dim: 128
+
+bbox_expand: 1.1
+num_captions: 10
+text_max_length: 77
+experiment: B
